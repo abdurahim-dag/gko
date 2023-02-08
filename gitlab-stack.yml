@@ -1,0 +1,49 @@
+version: "3.6"
+services:
+  gitlab:
+    image: gitlab/gitlab-ce:latest
+    ports:
+      - "22:22"
+      - "80:80"
+      - "443:443"
+    volumes:
+      - gitlab-home-data:/var/opt/gitlab
+      - gitlab-home-logs:/var/log/gitlab
+      - gitlab-home-config:/etc/gitlab
+    shm_size: '256m'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: "from_file('/omnibus_config.rb')"
+    configs:
+      - source: gitlab
+        target: /omnibus_config.rb
+    secrets:
+      - gitlab_root_password
+    networks:
+      - gitlab-stack
+  gitlab-runner:
+    image: gitlab/gitlab-runner:alpine
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - gitlab-runner-config:/etc/gitlab-runner
+    deploy:
+      mode: replicated
+      replicas: 1
+    networks:
+      - gitlab-stack
+configs:
+  gitlab:
+    file: ./gitlab.rb
+secrets:
+  gitlab_root_password:
+    file: ./root_password.txt
+
+volumes:
+  gitlab-home-data:
+  gitlab-home-logs:
+  gitlab-home-config:
+  gitlab-runner-config:
+
+networks:
+  gitlab-stack:
+    driver: overlay
+    attachable: true
