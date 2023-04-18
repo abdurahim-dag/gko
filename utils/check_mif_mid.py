@@ -30,9 +30,12 @@ for filepath in pathlib.Path(directory).glob('**/*.mif'):
     # Define the command to execute in the command prompt
     command = f"C:\\OSGeo4W64\\bin\\ogr2ogr.exe -sql \"SELECT * FROM input\" -dialect sqlite -f \"ESRI Shapefile\" d:\\null {str(rename(filepath, 'input'))}"
 
-    output, error  = subprocess.Popen(
-        command, universal_newlines=True,
-        stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
+    try:
+        output, error  = subprocess.Popen(
+            command, universal_newlines=True,
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate(timeout=60)
+    except subprocess.TimeoutExpired:
+        logger.error(f"{filepath} - timeout processing")
 
     for file in parent.glob('*'):
         os.rename(file, rename(file, filepath.stem))
