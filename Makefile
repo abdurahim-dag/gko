@@ -15,8 +15,27 @@ add-conn-pg:
     \"extra\": {\"sslmode\": \"disable\"}\
 }'"
 
-5-add-variables:
-	docker exec de-project-airflow bash -c "airflow variables import /lessons/variables.json"
+add-conn-smb:
+	docker exec airflow-webserver bash -c "airflow connections add \"smb_public\" --conn-json '{\
+    \"conn_type\": \"samba\",\
+    \"login\": \"dagbti\\\atamovrb\",\
+    \"password\": \"${SMB_PASSWORD}\",\
+    \"host\": \"172.16.0.2\"\
+}'"
+
+add-conn-exchange:
+	docker exec airflow-webserver bash -c "airflow connections add \"email_exchange\" --conn-json '{\
+    \"conn_type\": \"email\",\
+    \"schema\": \"rosreestrin@dagbti.ru\",\
+    \"login\": \"dagbti\\\rosreestrin\",\
+    \"password\": \"${EWS_PASSWORD}\",\
+    \"host\": \"mail.dagbti.ru\"\
+}'"
+
+
+add-variables:
+	docker cp variables.json airflow-webserver:/data/variables.json
+	docker exec airflow-webserver bash -c "airflow variables import /data/variables.json"
 
 6-add-conn-api-delivery:
 	docker exec de-project-airflow bash -c "airflow connections add \"API_DELIVERY\" --conn-json '{\

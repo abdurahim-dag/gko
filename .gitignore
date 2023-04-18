@@ -131,3 +131,4 @@ dmypy.json
 *.csv
 .env.prod
 .env.dev
+.data/
