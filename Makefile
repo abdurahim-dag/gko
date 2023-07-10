@@ -1,3 +1,5 @@
+start: start-airflow start-gko add-conn-pg add-conn-smb add-conn-exchange add-variables
+
 start-airflow:
 	cd ./airflow && docker compose up -d --no-deps --build
 
@@ -37,13 +39,6 @@ add-variables:
 	docker cp variables.json airflow-webserver:/data/variables.json
 	docker exec airflow-webserver bash -c "airflow variables import /data/variables.json"
 
-6-add-conn-api-delivery:
-	docker exec de-project-airflow bash -c "airflow connections add \"API_DELIVERY\" --conn-json '{\
-    \"conn_type\": \"http\",\
-    \"host\": \"d5d04q7d963eapoepsqr.apigw.yandexcloud.net\",\
-    \"schema\": \"https\",\
-    \"extra\": {\"X-Nickname\": \"ragimatamov\", \"X-Cohort\": \"6\", \"X-API-KEY\": \"${api-key}\"}\
-}'"
 
 stop-airflow:
 	cd ./airflow && docker compose down -v

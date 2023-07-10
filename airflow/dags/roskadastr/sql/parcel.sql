@@ -50,7 +50,13 @@ SELECT
         jsonb_path_query(requests.obj, '$."CadastralCost"."@Value"'::jsonpath) ->> 0 AS cost_old,
         map_class(jsonb_path_query(requests.obj, '$.**."Utilization"."@Utilization"'::jsonpath) ->> 0) AS utilization_cod_old,
         map_class(jsonb_path_query(requests.obj, '$.**."Utilization"."@LandUse"'::jsonpath) ->> 0) AS utilization_cod_new,
-        to_json(array_remove(ARRAY[jsonb_path_query(requests.obj, '$.**."Utilization"."@PermittedUseText"'::jsonpath), jsonb_path_query_array(jsonb_path_query(requests.obj, '$.**."ObjectPermittedUses"'::jsonpath), '$.**."ObjectPermittedUse"'::jsonpath)], NULL::jsonb)) ->> 0 AS utilization,
+        to_json(
+            array_remove(
+                ARRAY[
+                    jsonb_path_query(requests.obj, '$.**."Utilization"."@PermittedUseText"'::jsonpath),
+                    jsonb_path_query_array(jsonb_path_query(requests.obj, '$.**."ObjectPermittedUses"'::jsonpath),'$.**."ObjectPermittedUse"'::jsonpath),
+                    jsonb_path_query(requests.obj, '$.**."PositionInObject"."@Number"'::jsonpath)
+                    ], NULL::jsonb)) ->> 0 AS utilization,
         jsonb_path_query(requests.obj, '$.**."Utilization"."@ByDoc"'::jsonpath) ->> 0 AS utilization_doc,
         map_class(to_json(array_remove(ARRAY[jsonb_path_query(requests.obj, '$."AssignationBuilding"'::jsonpath), jsonb_path_query(requests.obj, '$."AssignationName"'::jsonpath), jsonb_path_query(requests.obj, '$."Assignation"."AssignationCode"'::jsonpath)], NULL::jsonb)) ->> 0) AS purpose,
         map_class(jsonb_path_query(requests.obj, '$."ObjectType"'::jsonpath) ->> 0) AS vid,
