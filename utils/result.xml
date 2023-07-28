@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<objects><Building CadastralNumber="05:38:000030:173" DateCreated="2021-10-11+03:00">
+                <CadastralBlock>05:38:000030</CadastralBlock>
+                <PreviouslyPosted>true</PreviouslyPosted>
+                <Name>Жилой дом</Name>
+                <ObjectType>002001002000</ObjectType>
+                <AssignationBuilding>204002000000</AssignationBuilding>
+                <ElementsConstruct>
+                    <Material Wall="061001001002"/>
+                </ElementsConstruct>
+                <ExploitationChar YearBuilt="1985"/>
+                <Floors Floors="1"/>
+                <Area>68.2</Area>
+                <Location AddressOrLocation="1">
+                    <FIAS>72b92764-9591-4e65-af03-03a4beb8b629</FIAS>
+                    <OKATO>82257875002</OKATO>
+                    <KLADR>05040000043</KLADR>
+                    <OKTMO>82657475106</OKTMO>
+                    <PostalCode>368907</PostalCode>
+                    <RussianFederation>Российская Федерация</RussianFederation>
+                    <Region>05</Region>
+                    <District Name="Цумадинский" Type="р-н"/>
+                    <Locality Name="Хвайни" Type="с"/>
+                    <Note>Республика Дагестан, Цумадинский район, с. Хвайни</Note>
+                    <ReadableAddress>Республика Дагестан, Цумадинский район, с. Хвайни</ReadableAddress>
+                </Location>
+                <CadastralCost Value="439768.5">
+                    <DateValuation>2021-10-11+03:00</DateValuation>
+                    <DateEntering>2021-11-09+03:00</DateEntering>
+                    <ApplicationDate>2021-10-11+03:00</ApplicationDate>
+                    <ApprovalDocument>
+                        <CodeDocument>558501030500</CodeDocument>
+                        <Name>Акт определения кадастровой стоимости объектов недвижимости</Name>
+                        <Number>АОКС-05/2021/001032</Number>
+                        <Date>2021-10-25+03:00</Date>
+                        <IssueOrgan>Государственное бюджетное учреждение Республики Дагестан "Дагестанское бюро по технической инвентаризации и кадастровой оценке" (ГБУ РД "Дагтехкадастр")</IssueOrgan>
+                    </ApprovalDocument>
+                </CadastralCost>
+            </Building>
+            </objects>
