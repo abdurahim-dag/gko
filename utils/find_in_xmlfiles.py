@@ -6,8 +6,8 @@ from lxml import etree as ET
 
 
 target_folder = r'c:\XML'
-target_file = r'D:\finds.xml'
-list_cad_nums_file = r'D:\cad_nums.xlsx'
+target_file = r'D:\finds-2.xml'
+list_cad_nums_file = r'D:\cad_nums-2.xlsx'
 
 cad_nums = []
 xlsx = pd.ExcelFile(list_cad_nums_file)
@@ -24,7 +24,7 @@ for target_xml in pathlib.Path(target_folder).glob('*.xml'):
         root = tree.getroot()
         parcels = root.findall('Objects/*/*')
 
-        if len(buildings) > 0:
+        if len(parcels) > 0:
             for parcel in parcels:
                 cad_num = parcel.attrib['CadastralNumber']
                 if cad_num in cad_nums:
